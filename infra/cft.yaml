@@ -6,9 +6,6 @@ Parameters:
   InfraInstanceTypeParameter:
     Type: String
     Default: t2.medium
-  WorkstationIp:
-    Type: String
-    Description: The IP address of the workstation that can RDP into the instance.
   AMI:
     Type: String
     Default: ami-0b4577d77dac11b84 
