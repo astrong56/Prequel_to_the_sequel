@@ -148,8 +148,3 @@ Outputs:
         - PreqelProd
         - PublicIp
     Description: Server's PublicIp Address
-  KeyID:
-    Value:
-      Fn::GetAtt:
-        - PrequelRSAKey
-        - KeyPairId
