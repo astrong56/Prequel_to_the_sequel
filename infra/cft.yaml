@@ -1,9 +1,11 @@
 AWSTemplateFormatVersion: 2010-09-09
 Parameters:
-  InstanceTypeParameter:
+  AppInstanceTypeParameter:
     Type: String
-    Default: t3a.medium
-    Description: Enter instance size. Default is t3a.medium.
+    Default: t2.micro
+  InfraInstanceTypeParameter:
+    Type: String
+    Default: t2.medium
   WorkstationIp:
     Type: String
     Description: The IP address of the workstation that can RDP into the instance.
@@ -25,43 +27,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: '10933'
           ToPort: '10933'
-          CidrIp:  20.188.245.156/32
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  52.147.25.42/32 
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  52.147.31.180/32 
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  20.188.244.132/32 
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  52.147.25.94/32 
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  52.147.25.173/32 
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  20.188.245.171/32 
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  20.188.245.7/32
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  20.188.244.147/32
-        - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
-          CidrIp:  20.188.244.240/32
+          CidrIp:  20.188.245.156/32 
         - IpProtocol: tcp
           FromPort: '3389'
           ToPort: '3389'
@@ -69,57 +35,82 @@ Resources:
       SecurityGroupEgress:
         - IpProtocol: -1
           CidrIp: 0.0.0.0/0
-  Windows:
+  preqel-infrastructure:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
       InstanceType:
-        Ref: InstanceTypeParameter
+        Ref: InfraInstanceTypeParameter
       KeyName: !Ref Key
-      SubnetId: !Ref SubnetA
       SecurityGroupIds:
         - Ref: InstanceSecurityGroup
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeSize: 250
-      UserData:
-        Fn::Base64: !Sub |
-          <powershell>
-          Write-Host "Hello World!"
-          </powershell>
       Tags:
         -
-          Key: Appplication
-          Value:  Windows Server
+          Key: course
+          Value: IEA
         -
-          Key: Domain
-          Value: None
+          Key: cohort
+          Value: 8
+  preqel-staging:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref AMI
+      InstanceType:
+        Ref: AppInstanceTypeParameter
+      KeyName: !Ref Key
+      SecurityGroupIds:
+        - Ref: InstanceSecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 250
+      Tags:
         -
-          Key: Environment
-          Value: Test
+          Key: course
+          Value: IEA
         -
-          Key: LifeTime
-          Value: Transient
+          Key: cohort
+          Value: 8
+  preqel-prod:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref AMI
+      InstanceType:
+        Ref: AppInstanceTypeParameter
+      KeyName: !Ref Key
+      SecurityGroupIds:
+        - Ref: InstanceSecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 250
+      Tags:
         -
-          Key: Name
-          Value:  Windows Server Worker
+          Key: course
+          Value: IEA
         -
-          Key: OS
-          Value: Windows
-        -
-          Key: OwnerContact
-          Value: "@matthewcasperson"
-        -
-          Key: Purpose
-          Value: MattC Test Worker
-        -
-          Key: Source
-          Value: CloudFormation Script in Octopus Deploy
+          Key: cohort
+          Value: 8
 Outputs:
-  PublicIp:
+  infrastructure-PublicIp:
     Value:
       Fn::GetAtt:
-        - Windows
+        - prequel-infrastructure
+        - PublicIp
+    Description: Server's PublicIp Address
+  staging-PublicIp:
+    Value:
+      Fn::GetAtt:
+        - prequel-staging
+        - PublicIp
+    Description: Server's PublicIp Address
+  prod-PublicIp:
+    Value:
+      Fn::GetAtt:
+        - prequel-prod
         - PublicIp
     Description: Server's PublicIp Address
