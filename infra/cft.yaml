@@ -9,16 +9,12 @@ Parameters:
   AMI:
     Type: String
     Default: ami-0b4577d77dac11b84 
-  # VPC:
-  #   Type: String
-  #   Default: vpc-bbe206d0
 Resources:
   IfraInstanceSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: "prequel infra SG"
       GroupDescription: "SG for the prequel infrastructure"
-      #VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
@@ -52,7 +48,6 @@ Resources:
     Properties:
       GroupName: "prequel app SG"
       GroupDescription: "SG for the prequel infrastructure"
-      #VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
@@ -69,7 +64,7 @@ Resources:
         -
           Key: cohort
           Value: 8
-  PreqelInfrastructure:
+  PrequelInfrastructure:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
@@ -89,7 +84,10 @@ Resources:
         -
           Key: cohort
           Value: 8
-  PreqelStaging:
+        -
+          Key: name
+          Value: PrequelInfrastructure
+  PrequelStaging:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
@@ -109,7 +107,10 @@ Resources:
         -
           Key: cohort
           Value: 8
-  PreqelProd:
+        -
+          Key: name
+          Value: PrequelStaging
+  PrequelProd:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
@@ -129,22 +130,25 @@ Resources:
         -
           Key: cohort
           Value: 8
+        -
+          Key: name
+          Value: PrequelProd
 Outputs:
   InfraPublicIp:
     Value:
       Fn::GetAtt:
-        - PreqelInfrastructure
+        - PrequelInfrastructure
         - PublicIp
     Description: Server's PublicIp Address
   StagingPublicIp:
     Value:
       Fn::GetAtt:
-        - PreqelStaging
+        - PrequelStaging
         - PublicIp
     Description: Server's PublicIp Address
   ProdPublicIp:
     Value:
       Fn::GetAtt:
-        - PreqelProd
+        - PrequelProd
         - PublicIp
     Description: Server's PublicIp Address
