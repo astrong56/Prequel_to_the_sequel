@@ -12,10 +12,6 @@ Parameters:
   AMI:
     Type: String
     Default: ami-0b4577d77dac11b84 
-  Key:
-    Type: String
-    Description: The key used to access the instance.
-    Default: key-03793e64d9a9643e1
   # VPC:
   #   Type: String
   #   Default: vpc-bbe206d0
@@ -76,6 +72,19 @@ Resources:
         -
           Key: cohort
           Value: 8
+  Key:
+    Type: AWS::EC2::KeyPair
+    Properties: 
+      KeyName: PrequelKey
+      KeyType: rsa
+      Tags: 
+        -
+          Key: course
+          Value: IEA
+        -
+          Key: cohort
+          Value: 8
+
   PreqelInfrastructure:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -155,3 +164,8 @@ Outputs:
         - PreqelProd
         - PublicIp
     Description: Server's PublicIp Address
+  KeyID:
+    Value:
+      Fn::GetAtt:
+        - Key
+        - KeyPairId
