@@ -15,16 +15,17 @@ Parameters:
   Key:
     Type: String
     Description: The key used to access the instance.
-  VPC:
-    Type: String
-    Default: ChangeME!!!
+    Default: key-03793e64d9a9643e1
+  # VPC:
+  #   Type: String
+  #   Default: vpc-bbe206d0
 Resources:
   IfraInstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: "prequel security group"
       GroupDescription: "SG for the prequel infrastructure"
-      VpcId: !Ref VPC
+      #VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
@@ -58,7 +59,7 @@ Resources:
     Properties:
       GroupName: "prequel security group"
       GroupDescription: "SG for the prequel infrastructure"
-      VpcId: !Ref VPC
+      #VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
