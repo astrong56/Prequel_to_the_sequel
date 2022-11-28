@@ -11,30 +11,67 @@ Parameters:
     Description: The IP address of the workstation that can RDP into the instance.
   AMI:
     Type: String
-    Default: ami-05bb2dae0b1de90b3
-    Description: The Windows AMI to use.
+    Default: ami-0b4577d77dac11b84 
   Key:
     Type: String
     Description: The key used to access the instance.
 Resources:
-  InstanceSecurityGroup:
+  IfraInstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: "Octopus Target Group"
-      GroupDescription: "Tentacle traffic in from hosted static ips, and RDP in from a personal workstation"
+      GroupName: "prequel security group"
+      GroupDescription: "SG for the prequel infrastructure"
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: '10933'
-          ToPort: '10933'
+          FromPort: '22'
+          ToPort: '22'
           CidrIp:  20.188.245.156/32 
         - IpProtocol: tcp
-          FromPort: '3389'
-          ToPort: '3389'
-          CidrIp:  !Sub ${WorkstationIp}/32
-      SecurityGroupEgress:
-        - IpProtocol: -1
-          CidrIp: 0.0.0.0/0
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp:  20.188.245.156/32
+        - IpProtocol: tcp
+          FromPort: '8080'
+          ToPort: '8080'
+          CidrIp:  20.188.245.156/32 
+        - IpProtocol: tcp
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp:  20.188.245.156/32
+          IpProtocol: tcp
+          FromPort: '8085'
+          ToPort: '8085'
+          CidrIp:  20.188.245.156/32
+      Tags:
+        -
+          Key: course
+          Value: IEA
+        -
+          Key: cohort
+          Value: 8
+  AppInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: "prequel security group"
+      GroupDescription: "SG for the prequel infrastructure"
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp:  20.188.245.156/32 
+        - IpProtocol: tcp
+          FromPort: '8088'
+          ToPort: '8088'
+          CidrIp:  20.188.245.156/32
+      Tags:
+        -
+          Key: course
+          Value: IEA
+        -
+          Key: cohort
+          Value: 8
   preqel-infrastructure:
     Type: 'AWS::EC2::Instance'
     Properties:
