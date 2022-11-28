@@ -20,7 +20,7 @@ Parameters:
   #   Type: String
   #   Default: vpc-bbe206d0
 Resources:
-  IfraInstanceSecurityGroup:
+  IfraInstanceSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: "prequel security group"
@@ -54,7 +54,7 @@ Resources:
         -
           Key: cohort
           Value: 8
-  AppInstanceSecurityGroup:
+  AppInstanceSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: "prequel security group"
