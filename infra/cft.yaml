@@ -69,10 +69,10 @@ Resources:
         -
           Key: cohort
           Value: 8
-  Key:
+  PrequelRSAKey:
     Type: AWS::EC2::KeyPair
     Properties: 
-      KeyName: PrequelKey
+      KeyName: PrequelRSAKey
       KeyType: rsa
       Tags: 
         -
@@ -88,7 +88,7 @@ Resources:
       ImageId: !Ref AMI
       InstanceType:
         Ref: InfraInstanceTypeParameter
-      KeyName: !Ref Key
+      KeyName: !Ref PrequelRSAKey
       SecurityGroupIds:
         - Ref: IfraInstanceSG
       BlockDeviceMappings:
@@ -108,7 +108,7 @@ Resources:
       ImageId: !Ref AMI
       InstanceType:
         Ref: AppInstanceTypeParameter
-      KeyName: !Ref Key
+      KeyName: !Ref PrequelRSAKey
       SecurityGroupIds:
         - Ref: AppInstanceSG
       BlockDeviceMappings:
@@ -128,7 +128,7 @@ Resources:
       ImageId: !Ref AMI
       InstanceType:
         Ref: AppInstanceTypeParameter
-      KeyName: !Ref Key
+      KeyName: !Ref PrequelRSAKey
       SecurityGroupIds:
         - Ref: AppInstanceSG
       BlockDeviceMappings:
@@ -164,5 +164,5 @@ Outputs:
   KeyID:
     Value:
       Fn::GetAtt:
-        - Key
+        - PrequelRSAKey
         - KeyPairId
