@@ -69,26 +69,13 @@ Resources:
         -
           Key: cohort
           Value: 8
-  PrequelRSAKey:
-    Type: AWS::EC2::KeyPair
-    Properties: 
-      KeyName: PrequelRSAKey
-      KeyType: rsa
-      Tags: 
-        -
-          Key: course
-          Value: IEA
-        -
-          Key: cohort
-          Value: 8
-
   PreqelInfrastructure:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
       InstanceType:
         Ref: InfraInstanceTypeParameter
-      KeyName: !Ref PrequelRSAKey
+      KeyName: PrequelKey
       SecurityGroupIds:
         - Ref: IfraInstanceSG
       BlockDeviceMappings:
@@ -108,7 +95,7 @@ Resources:
       ImageId: !Ref AMI
       InstanceType:
         Ref: AppInstanceTypeParameter
-      KeyName: !Ref PrequelRSAKey
+      KeyName: PrequelKey
       SecurityGroupIds:
         - Ref: AppInstanceSG
       BlockDeviceMappings:
@@ -128,7 +115,7 @@ Resources:
       ImageId: !Ref AMI
       InstanceType:
         Ref: AppInstanceTypeParameter
-      KeyName: !Ref PrequelRSAKey
+      KeyName: PrequelKey
       SecurityGroupIds:
         - Ref: AppInstanceSG
       BlockDeviceMappings:
