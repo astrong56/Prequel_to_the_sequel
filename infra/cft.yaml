@@ -23,7 +23,7 @@ Resources:
   IfraInstanceSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: "prequel security group"
+      GroupName: "prequel infra SG"
       GroupDescription: "SG for the prequel infrastructure"
       #VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -57,7 +57,7 @@ Resources:
   AppInstanceSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: "prequel security group"
+      GroupName: "prequel app SG"
       GroupDescription: "SG for the prequel infrastructure"
       #VpcId: !Ref VPC
       SecurityGroupIngress:
