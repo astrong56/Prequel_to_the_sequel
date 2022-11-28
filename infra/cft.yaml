@@ -15,6 +15,9 @@ Parameters:
   Key:
     Type: String
     Description: The key used to access the instance.
+  VPC:
+    Type: String
+    Default: ChangeME!!!
 Resources:
   IfraInstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -72,7 +75,7 @@ Resources:
         -
           Key: cohort
           Value: 8
-  preqel-infrastructure:
+  PreqelInfrastructure:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
@@ -80,7 +83,7 @@ Resources:
         Ref: InfraInstanceTypeParameter
       KeyName: !Ref Key
       SecurityGroupIds:
-        - Ref: InstanceSecurityGroup
+        - Ref: IfraInstanceSecurityGroup
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
@@ -92,7 +95,7 @@ Resources:
         -
           Key: cohort
           Value: 8
-  preqel-staging:
+  PreqelStaging:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
@@ -100,7 +103,7 @@ Resources:
         Ref: AppInstanceTypeParameter
       KeyName: !Ref Key
       SecurityGroupIds:
-        - Ref: InstanceSecurityGroup
+        - Ref: AppInstanceSecurityGroup
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
@@ -112,7 +115,7 @@ Resources:
         -
           Key: cohort
           Value: 8
-  preqel-prod:
+  PreqelProd:
     Type: 'AWS::EC2::Instance'
     Properties:
       ImageId: !Ref AMI
@@ -120,7 +123,7 @@ Resources:
         Ref: AppInstanceTypeParameter
       KeyName: !Ref Key
       SecurityGroupIds:
-        - Ref: InstanceSecurityGroup
+        - Ref: AppInstanceSecurityGroup
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
@@ -133,21 +136,21 @@ Resources:
           Key: cohort
           Value: 8
 Outputs:
-  infrastructure-PublicIp:
+  InfraPublicIp:
     Value:
       Fn::GetAtt:
-        - prequel-infrastructure
+        - PreqelInfrastructure
         - PublicIp
     Description: Server's PublicIp Address
-  staging-PublicIp:
+  StagingPublicIp:
     Value:
       Fn::GetAtt:
-        - prequel-staging
+        - PreqelStaging
         - PublicIp
     Description: Server's PublicIp Address
-  prod-PublicIp:
+  ProdPublicIp:
     Value:
       Fn::GetAtt:
-        - prequel-prod
+        - PreqelProd
         - PublicIp
     Description: Server's PublicIp Address
