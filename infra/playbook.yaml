@@ -1,0 +1,16 @@
+- hosts: all
+  become: true
+  vars:
+    container_count: 1
+    default_container_name: docker
+  tasks:
+    - name: Install Docker
+      ansible.builtin.apt:
+        name:
+          - docker
+          - docker.io
+          - docker-compose
+          - docker-registry
+        state: latest
+        update_cache: true
+          
