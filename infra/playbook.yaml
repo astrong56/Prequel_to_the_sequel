@@ -21,7 +21,7 @@
       - name: Create Docker volume
         community.docker.docker_volume:
           name: bambooVolume
-      - debug: msg= "{{Docker Volume was successfully created.}}"
+      - debug: msg= "{{ Docker Volume was successfully created. }}"
 
     - name: Pull Docker image
       community.docker.docker_image:
@@ -30,7 +30,7 @@
         pull:
           path: "{{/srv/bamboodockerimage}}"
           platform: amd64
-        - debug: msg= "{{Docker image was successfully pulled.}}"
+        - debug: msg= "{{ Docker image was successfully pulled. }}"
 
     - name: Docker image creation
       community.docker.docker_container:
@@ -44,4 +44,4 @@
           - 8085
         volumes:
           - /var/lib/docker/volume/
-        - debug: msg= "{{Docker image was successfully created}}"          
+        - debug: msg= "{{ Docker image was successfully created. }}"          
