@@ -21,7 +21,7 @@
     - name: Build Docker volume and image creation
       community.docker.docker_volume:
         name: bambooVolume
-    - debug: msg= "{{ Docker Volume was successfully created. }}"
+    - debug: "Docker Volume was successfully created."
 
 #    - name: Pull Docker image
 #      community.docker.docker_image:
@@ -42,4 +42,4 @@
           - 8085
         volumes:
           - "bambooVolume:/var/atlassian/application-data/bamboo"  
-    - debug: msg= "{{ Docker image was successfully created. }}"          
+    - debug: "Docker image was successfully created."          
