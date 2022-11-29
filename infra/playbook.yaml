@@ -16,12 +16,12 @@
         update_cache: true
 
     - name: Build Docker volume and image creation
-        hosts: infra
-        tasks:
-        - name: Create Docker volume
-          community.docker.docker_volume:
-            name: bambooVolume
-        - debug: msg= "{{Docker Volume was successfully created.}}"
+      hosts: infra
+      tasks:
+      - name: Create Docker volume
+        community.docker.docker_volume:
+          name: bambooVolume
+      - debug: msg= "{{Docker Volume was successfully created.}}"
 
     - name: Pull Docker image
       community.docker.docker_image:
