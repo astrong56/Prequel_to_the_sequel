@@ -39,8 +39,8 @@
         image: jrrickerson/capstone-bamboo
         state: started
         published_ports:
-          - 54633
-          - 8085
+          - 54663:54663
+          - 8085:8085
         volumes:
           - "bambooVolume:/var/atlassian/application-data/bamboo"  
     - debug: 
