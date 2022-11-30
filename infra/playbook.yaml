@@ -51,7 +51,7 @@
   tasks:
     - name: WordPress Docker Compose Install
       community.docker.docker_compose:
-        project_src: ~/Prequel_to_the_sequel/wordpress
+        project_src: ./wordpress
         files:
         - docker-compose.yaml
 
