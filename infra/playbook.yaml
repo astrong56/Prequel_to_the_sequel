@@ -36,7 +36,7 @@
     - name: Docker image creation
       community.docker.docker_container:
         name: bamboo
-        image: jrrickerson/capstone-bamboo
+        image: labadieb/capstone-bamboo:v2
         state: started
         published_ports:
           - 54663:54663
