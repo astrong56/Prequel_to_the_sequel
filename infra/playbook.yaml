@@ -44,4 +44,14 @@
         volumes:
           - "bambooVolume:/var/atlassian/application-data/bamboo"  
     - debug: 
-        msg: "Docker image was successfully created."          
+        msg: "Docker image was successfully created."   
+
+- hosts: app
+  become: true
+  tasks:
+    - name: WordPress Docker Compose Install
+      community.docker.docker_compose:
+        project_src: ~/Prequel_to_the_sequel/wordpress
+        files:
+        - docker-compose.yaml
+
