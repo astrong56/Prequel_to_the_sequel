@@ -23,7 +23,7 @@
         path: /home/ubuntu/.ssh/PrequelKey.pem
         owner: 2005
         group: 2005
-        mode: g+rx,o-rx
+        mode: g-rx,o-rx
     - name: Build Docker volume and image creation
       community.docker.docker_volume:
         name: bambooVolume
