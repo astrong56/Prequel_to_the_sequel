@@ -13,3 +13,6 @@
         project_src: /opt
         files:
         - docker-compose.yaml
+
+    - ansible.builtin.debug:
+        var: output
