@@ -54,7 +54,7 @@
     - debug: 
         msg: "Docker image was successfully created."   
 
-- hosts: app_1
+- hosts: app_group
   become: true
   tasks:
     - name: copy docker compose file

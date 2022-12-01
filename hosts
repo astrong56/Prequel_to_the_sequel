@@ -3,17 +3,17 @@ infra ansible_host=3.16.30.232
 prod ansible_host=18.224.153.51
 staging ansible_host=13.59.180.96
 
-[infra]
+[infra_group]
 infra ansible_host=3.16.30.232
 
-[app_1]
+[app_group]
 prod ansible_host=18.224.153.51
 staging ansible_host=13.59.180.96
 
-[prod_1]
+[prod_group]
 prod ansible_host=18.224.153.51
 
-[staging_1]
+[staging_group]
 staging ansible_host=13.59.180.96
 
 [all:vars]
