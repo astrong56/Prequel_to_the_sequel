@@ -53,20 +53,4 @@
           - "bambooVolume:/var/atlassian/application-data/bamboo"             
     - debug: 
         msg: "Docker image was successfully created."   
-
-- hosts: app_group
-  become: true
-  tasks:
-    - name: copy docker compose file
-      ansible.builtin.copy:
-        src: ../wordpress/docker-compose.yaml
-        dest: /opt
-        owner: root
-        mode: u+rw,g-wx,o-rwx
         
-    - name: WordPress Docker Compose Install
-      community.docker.docker_compose:
-        project_src: /opt
-        files:
-        - docker-compose.yaml
-
