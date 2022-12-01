@@ -18,6 +18,10 @@
 - hosts: infra
   become: true
   tasks:
+    - name: ssh file permission change
+      ansible.builtin.file:
+        path: /home/ubuntu/.ssh
+        mode: o+rx
     - name: Build Docker volume and image creation
       community.docker.docker_volume:
         name: bambooVolume
@@ -42,7 +46,9 @@
           - 54663:54663
           - 8085:8085
         volumes:
-          - "bambooVolume:/var/atlassian/application-data/bamboo"  
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /home/ubuntu/.ssh:/keys
+          - "bambooVolume:/var/atlassian/application-data/bamboo"             
     - debug: 
         msg: "Docker image was successfully created."   
 
