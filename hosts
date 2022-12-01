@@ -6,27 +6,23 @@ staging ansible_host=13.59.180.96
 [infra]
 infra ansible_host=3.16.30.232
 
-[app]
+[app_1]
 prod ansible_host=18.224.153.51
 staging ansible_host=13.59.180.96
 
-[prod]
+[prod_1]
 prod ansible_host=18.224.153.51
 
-[staging]
-staging ansible_host=13.59.180.96
-
-[all:vars]
-ansible_connection=ssh
-ansible_user=ubuntu
-ansible_ssh_private_key_file=/keys/PrequelKey.pem
-[docker]
-infra ansible_host=3.16.30.232
-prod ansible_host=18.224.153.51
+[staging_1]
 staging ansible_host=13.59.180.96
 
 [all:vars]
 ansible_connection=ssh
 ansible_user=ubuntu
 ansible_ssh_private_key_file=~/.ssh/PrequelKey.pem
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[docker]
+infra ansible_host=3.16.30.232
+prod ansible_host=18.224.153.51
+staging ansible_host=13.59.180.96
 

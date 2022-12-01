@@ -20,8 +20,10 @@
   tasks:
     - name: ssh file permission change
       ansible.builtin.file:
-        path: /home/ubuntu/.ssh
-        mode: o+rx
+        path: /home/ubuntu/.ssh/PrequelKey.pem
+        owner: 2005
+        group: 2005
+        mode: g+rx,o-rx
     - name: Build Docker volume and image creation
       community.docker.docker_volume:
         name: bambooVolume
@@ -47,12 +49,12 @@
           - 8085:8085
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
-          - /home/ubuntu/.ssh:/keys
+          - /home/ubuntu/.ssh:/var/keys/
           - "bambooVolume:/var/atlassian/application-data/bamboo"             
     - debug: 
         msg: "Docker image was successfully created."   
 
-- hosts: app
+- hosts: app_1
   become: true
   tasks:
     - name: copy docker compose file
