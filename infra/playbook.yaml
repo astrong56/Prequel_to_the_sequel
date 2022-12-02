@@ -4,6 +4,7 @@
   vars:
     container_count: 1
     default_container_name: docker
+    default_container_image: ubuntu
   tasks:
     - name: Install Docker
       ansible.builtin.apt:
