@@ -13,9 +13,14 @@
         pkg:
           - python-pip
           - python-setuptools
+
         state: latest
         update_cache: yes
 
+    - name: Install python setuptools_rust
+      pip:
+        name: setuptools_rust
+        
     - name: Install Docker Module for Python
       pip:
         name: docker
