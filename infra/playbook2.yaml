@@ -11,10 +11,10 @@
     - name: Install required system packages
       apt:
         pkg:
-          - python3-pip
-          - python3-setuptools
+          - python-pip
+          - python-setuptools
         state: latest
-        update_cache: true
+        update_cache: yes
 
     - name: Install Docker Module for Python
       pip:
