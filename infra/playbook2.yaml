@@ -8,6 +8,12 @@
         owner: root
         mode: u+rw,g-wx,o-rwx
         
+    - name: Install required system packages
+      apt:
+        pkg:
+          - python3-pip
+          - python3-setuptools
+
     - name: Install Docker Module for Python
       pip:
         name: docker
