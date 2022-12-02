@@ -8,11 +8,13 @@
         owner: root
         mode: u+rw,g-wx,o-rwx
         
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+    
     - name: WordPress Docker Compose Install
       community.docker.docker_compose:
         project_src: /opt
         files:
         - docker-compose.yaml
 
-    - ansible.builtin.debug:
-        var: output
