@@ -20,6 +20,9 @@
     - name: Install python setuptools_rust
       pip:
         name: setuptools_rust
+        state: latest
+        update_cache: yes
+
         
     - name: Install Docker Module for Python
       pip:
