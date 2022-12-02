@@ -25,7 +25,7 @@
         owner: 2005
         group: 2005
         mode: g-rx,o-rx
-    - name: Build Docker volume and image creation
+    - name: Build Docker volume
       community.docker.docker_volume:
         name: bambooVolume
     - debug: 
