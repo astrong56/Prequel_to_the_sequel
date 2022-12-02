@@ -1,3 +1,4 @@
+---
 - hosts: app_group
   become: true
   tasks:
@@ -7,30 +8,7 @@
         dest: /opt
         owner: root
         mode: u+rw,g-wx,o-rwx
-        
-    - name: Install required system packages
-      apt:
-        pkg:
-          - python3-pip
-          - python3-setuptools
 
-        state: latest
-        update_cache: yes
-
-    - name: Install pip
-      pip:
-        name: pip
-        state: latest
-
-        
-    - name: Install Docker Module for Python
-      pip:
-        name: docker
-
-    - name: Install Docker-Compose Module for Python
-      pip:
-        name: docker-compose
-    
     - name: WordPress Docker Compose Install
       community.docker.docker_compose:
         project_src: /opt

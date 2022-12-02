@@ -1,10 +1,40 @@
 ---
+- hosts: app_group
+  become: true
+  gather_facts: false
+  tasks:       
+    - name: Install required system packages
+      apt:
+        pkg:
+          - python3-pip
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    - name: Install pip
+      pip:
+        name: pip
+        state: latest
+ 
+    - name: Install cryptography
+      pip:
+        name: cryptography<37.0.0
+        state: present
+        
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Install Docker-Compose Module for Python
+      pip:
+        name: docker-compose
+        
 - hosts: all
   become: true
   vars:
     container_count: 1
     default_container_name: docker
-    default_container_image: ubuntu
+
   tasks:
     - name: Install Docker
       ansible.builtin.apt:
