@@ -49,9 +49,9 @@ def post_blog(blog_title, blog_content):
     
 
 if __name__ == '__main__':
-    if wordpress_action == 'read' and wordpress_file == '':
+    if wordpress_action == 'read' and wordpress_file == None:
         get_newest_blog()
-    elif wordpress_action == 'write' and wordpress_file != '':
+    elif wordpress_action == 'write' and wordpress_file != None:
         blog_title, blog_content = read_input_file(wordpress_file)
         response = post_blog(blog_title, blog_content)
         print(response)
