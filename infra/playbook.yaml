@@ -73,6 +73,7 @@
     - name: Docker image creation
       community.docker.docker_container:
         name: bamboo
+        groups: docker
         image: labadieb/capstone-bamboo:v2
         state: started
         published_ports:
