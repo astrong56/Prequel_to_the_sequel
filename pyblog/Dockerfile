@@ -4,7 +4,7 @@ LABEL maintainer='christopher.anthony@libertymutual.com'
 # Copy application files into container
 COPY * /app/
 
-# Install Flask
+# Install requests
 RUN pip3 install requests
 
 # Have the container expose port 8088

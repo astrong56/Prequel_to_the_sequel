@@ -17,8 +17,6 @@ blog_timestamp = datetime.datetime.now().isoformat(timespec = 'seconds')
 wordpress_api_id = os.environ.get('WORDPRESS_USER')
 wordpress_api_pw = os.environ.get('WORDPRESS_PWD')
 wordpress_site = os.environ.get('WORDPRESS_URL')
-# wordpress_api_id = 'prequel'
-# wordpress_api_pw = 'GJTe Qe6Y Ejfi gkQ1 r2fO qz5H'
 
 
 def read_input_file(wordpress_file):
@@ -28,6 +26,18 @@ def read_input_file(wordpress_file):
         blog_content = content[1:]
     return blog_title, blog_content
 
+def read_std_input():
+    blog_title = input('Enter a title for your blog: ')
+    lines = []
+    print('Enter blog contents.  Press enter twice to quit.')
+    while True:
+        line = input()
+        if line:
+            lines.append(line)
+        else:
+            break
+    blog_content = '\n'.join(lines)
+    return blog_title, blog_content
 
 def get_newest_blog():
     """Returns the latest wordpress post"""
@@ -51,8 +61,12 @@ def post_blog(blog_title, blog_content):
 if __name__ == '__main__':
     if wordpress_action == 'read' and wordpress_file == None:
         get_newest_blog()
-    elif wordpress_action == 'write' and wordpress_file != None:
+    elif wordpress_action == 'write' and wordpress_file != '-':
         blog_title, blog_content = read_input_file(wordpress_file)
+        response = post_blog(blog_title, blog_content)
+        print(response)
+    elif wordpress_action == 'write' and wordpress_file == '-':
+        blog_title, blog_content = read_std_input()
         response = post_blog(blog_title, blog_content)
         print(response)
     else:
