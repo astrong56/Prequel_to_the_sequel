@@ -14,7 +14,7 @@ EXPOSE 8088
 USER 1001
 
 # Initial command to start script
-ENTRYPOINT python3 /app/pyblog.py
+ENTRYPOINT ["python3 /app/pyblog.py"]
 
 # Default command to run with entrypoint
-CMD read
+CMD ["read"]
