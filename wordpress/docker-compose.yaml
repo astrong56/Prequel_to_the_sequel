@@ -17,7 +17,11 @@ services:
      depends_on:
        - db
      image: wordpress:latest
-
+     logging:
+       driver: "splunk"
+       options:
+        splunk-token: "569ccc82-e99f-4eff-915e-b5060055500a"
+        splunk-url: "3.16.30.232:8000/services/collector/event"
      volumes:
       - wp-content:/var/www/html/
      ports:
