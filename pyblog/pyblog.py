@@ -3,10 +3,11 @@ import requests
 import argparse
 import datetime
 import os
+import fileinput
 
 parser = argparse.ArgumentParser(description='Enter Wordpress data')
 parser.add_argument('-f', '--filename', type=str,  
-                    help='''Enter the filename or a "-"''')
+                    help='''Enter the filename''')
 parser.add_argument('action', type=str,  default='read',
                     help='''Enter either "read" or "write"''')
 
@@ -18,25 +19,15 @@ wordpress_api_id = os.environ.get('WORDPRESS_USER')
 wordpress_api_pw = os.environ.get('WORDPRESS_PWD')
 wordpress_site = os.environ.get('WORDPRESS_URL')
 
-
-def read_input_file(wordpress_file):
-    with open(wordpress_file) as blog:
-        blog_title = blog.readline().strip('\n')
-        content = blog.readlines()
-        blog_content = content[1:]
-    return blog_title, blog_content
-
 def read_std_input():
-    blog_title = input('Enter a title for your blog: ')
-    lines = []
-    print('Enter blog contents.  Press enter twice to quit.')
-    while True:
-        line = input()
-        if line:
-            lines.append(line)
-        else:
-            break
-    blog_content = '\n'.join(lines)
+    with fileinput.input(files=(wordpress_file)) as f:
+        for line in f:
+            if fileinput.isfirstline() == True:
+                blog_title = line
+            else:
+                lines = []
+                lines.append(line)
+                blog_content = '\n'.join(lines)
     return blog_title, blog_content
 
 def get_newest_blog():
@@ -61,11 +52,7 @@ def post_blog(blog_title, blog_content):
 if __name__ == '__main__':
     if wordpress_action == 'read' and wordpress_file == None:
         get_newest_blog()
-    elif wordpress_action == 'write' and wordpress_file != '-':
-        blog_title, blog_content = read_input_file(wordpress_file)
-        response = post_blog(blog_title, blog_content)
-        print(response)
-    elif wordpress_action == 'write' and wordpress_file == '-':
+    elif wordpress_action == 'write':
         blog_title, blog_content = read_std_input()
         response = post_blog(blog_title, blog_content)
         print(response)
