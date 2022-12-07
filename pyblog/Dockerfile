@@ -13,4 +13,8 @@ EXPOSE 8088
 # Have the app run as a non-root user
 USER 1001
 
-CMD python3 /app/pyblog.py
+# Initial command to start script
+ENTRYPOINT python3 /app/pyblog.py
+
+# Default command to run with entrypoint
+CMD read
