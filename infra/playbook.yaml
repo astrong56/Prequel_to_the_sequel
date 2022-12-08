@@ -79,12 +79,11 @@
         published_ports:
           - 54663:54663
           - 8085:8085
-        logging:
-          driver: "splunk"
-          options:
-            splunk-token: 93c7a156-e460-4578-9b8d-8c189666ec92
-            splunk-url: https://3.16.30.232:8088
-            splunk-insecureskipverify: "true"
+        log_driver: "splunk"
+        log_options:
+          splunk-token: 93c7a156-e460-4578-9b8d-8c189666ec92
+          splunk-url: https://3.16.30.232:8088
+          splunk-insecureskipverify: "true"
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
           - /home/ubuntu/.ssh:/var/atlassian/application-data/bamboo/.ssh/
