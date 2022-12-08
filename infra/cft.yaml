@@ -52,6 +52,10 @@ Resources:
           FromPort: '8000'
           ToPort: '8000'
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '8088'
+          ToPort: '8088'
+          CidrIp: 0.0.0.0/0
       Tags:
         -
           Key: course
