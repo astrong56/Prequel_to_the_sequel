@@ -29,6 +29,7 @@ def read_std_input():
                 lines.append(line)
                 blog_content = '\n'.join(lines)
     return blog_title, blog_content
+    
 
 def get_newest_blog():
     """Returns the latest wordpress post"""
@@ -53,8 +54,18 @@ if __name__ == '__main__':
     if wordpress_action == 'read' and wordpress_file == None:
         get_newest_blog()
     elif wordpress_action == 'write':
-        blog_title, blog_content = read_std_input()
-        response = post_blog(blog_title, blog_content)
-        print(response)
+        try:
+            blog_title, blog_content = read_std_input()
+            try:
+                response = post_blog(blog_title, blog_content)
+                if response.status_code == 201:
+                    print(response)
+                else:
+                    print('unable to post blog due to HTTP error:', response)
+            except Exception as e2:
+                print('unable to reach blog due to error:', e2)
+        except Exception as e1:
+            print(e1)
+        
     else:
         print('Invalid action entered.  Please try again!')
