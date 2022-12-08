@@ -21,7 +21,8 @@ services:
        driver: "splunk"
        options:
         splunk-token: 569ccc82-e99f-4eff-915e-b5060055500a
-        splunk-url: http://3.16.30.232:8088
+        splunk-url: https://3.16.30.232:8088
+        splunk-insecureskipverify: true
      volumes:
       - wp-content:/var/www/html/
      ports:
